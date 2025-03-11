@@ -1,0 +1,24 @@
+<div class="row g-3 align-items-center mb-4">
+  <div class="col-md-3">
+    <input
+      type="text"
+      class="form-control"
+      placeholder="🔍 Search by name..."
+      [(ngModel)]="searchText"
+      (input)="updateFilter()"
+    />
+  </div>
+
+  <div class="col-md-3">
+    <select
+      class="form-select"
+      [(ngModel)]="selectedCategory"
+      (ngModelChange)="updateFilter()"
+    >
+      <option value="All">All Categories</option>
+      <option *ngFor="let category of categories" [value]="category.name">
+        {{ category.name }}
+      </option>
+    </select>
+  </div>
+</div>

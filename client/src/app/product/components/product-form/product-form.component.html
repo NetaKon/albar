@@ -1,0 +1,126 @@
+<div class="modal fade show d-block" tabindex="-1">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <!-- Modal Header -->
+      <div class="modal-header">
+        <h3 class="modal-title">
+          {{ product ? "Edit Product" : "Add Product" }}
+        </h3>
+        <button type="button" class="btn-close" (click)="closeModal()"></button>
+      </div>
+
+      <!-- Modal Body -->
+      <div class="modal-body">
+        <form [formGroup]="productForm" (ngSubmit)="saveProduct()">
+          <!-- Product Name -->
+          <div class="mb-3">
+            <label for="name" class="form-label">Product Name:</label>
+            <input
+              type="text"
+              id="name"
+              class="form-control"
+              formControlName="name"
+            />
+            <div
+              *ngIf="
+                productForm.get('name')?.invalid &&
+                productForm.get('name')?.touched
+              "
+              class="text-danger small"
+            >
+              Product name is required.
+            </div>
+          </div>
+
+          <!-- Category -->
+          <div class="mb-3">
+            <label for="category" class="form-label">Category:</label>
+            <select
+              id="category"
+              class="form-select"
+              formControlName="categoryId"
+            >
+              <option *ngFor="let category of categories" [value]="category.id">
+                {{ category.name }}
+              </option>
+            </select>
+            <div
+              *ngIf="
+                productForm.get('category')?.invalid &&
+                productForm.get('category')?.touched
+              "
+              class="text-danger small"
+            >
+              Category is required.
+            </div>
+          </div>
+
+          <!-- Price -->
+          <div class="mb-3">
+            <label for="price" class="form-label">Price ($):</label>
+            <input
+              type="number"
+              id="price"
+              class="form-control"
+              formControlName="price"
+              step="0.01"
+              min="0.01"
+            />
+            <div
+              *ngIf="
+                productForm.get('price')?.invalid &&
+                productForm.get('price')?.touched
+              "
+              class="text-danger small"
+            >
+              Price must be at least $0.01.
+            </div>
+          </div>
+
+          <!-- Units in Stock -->
+          <div class="mb-3">
+            <label for="stock" class="form-label">Units in Stock:</label>
+            <input
+              type="number"
+              id="stock"
+              class="form-control"
+              formControlName="unitsInStock"
+              step="1"
+              min="0"
+            />
+            <div
+              *ngIf="
+                productForm.get('unitsInStock')?.invalid &&
+                productForm.get('unitsInStock')?.touched
+              "
+              class="text-danger small"
+            >
+              Stock must be a non-negative whole number.
+            </div>
+          </div>
+
+          <!-- Actions -->
+          <div class="modal-footer">
+            <button
+              type="submit"
+              class="btn btn-primary"
+              [disabled]="productForm.invalid"
+            >
+              {{ product ? "Update Product" : "Add Product" }}
+            </button>
+            <button
+              type="button"
+              class="btn btn-secondary"
+              (click)="closeModal()"
+            >
+              Cancel
+            </button>
+          </div>
+        </form>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- Modal Backdrop -->
+<div class="modal-backdrop fade show"></div>

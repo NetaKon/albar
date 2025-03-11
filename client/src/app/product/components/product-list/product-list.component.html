@@ -1,0 +1,12 @@
+<div class="container mt-4">
+  <div class="row">
+    <div class="col-md-4 col-sm-6 mb-4" *ngFor="let product of products">
+      <div class="card p-3 shadow-sm">
+        <product-item [product]="product"></product-item>
+        <button class="btn btn-edit mt-2" (click)="editProduct(product)">
+          Edit
+        </button>
+      </div>
+    </div>
+  </div>
+</div>
